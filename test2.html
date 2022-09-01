@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    
+</body>
+<script>
+    var body = document.getElementsByTagName('body')[0];
+    var textArr=["JS", "CSS" ,"html", "Python", "C++", "Java"]; //文字内容（轮播）
+    var color=["rgb(57, 37, 233)","rgb(252, 91,32)","rgb(0,255,255)","rgb(127,255,0)","rgb(255,20,27)","rgb(255,0,255)","rgb(0,255,76)"]; //颜色（随机）
+    var index_i=0;
+document.addEventListener('click',(e)=>{
+// 生成字符串
+var ev = e || window.event;
+var baseX = ev.pageX;
+var baseY = ev.pageY;
+var new_span=document.createElement('span');
+new_span.innerText=textArr[index_i];
+new_span.style.position='fixed';
+new_span.style.left=baseX-10+'px';
+new_span.style.top=baseY+'px';
+new_span.style.color=color[parseInt(Math.random()*color.length)];
+new_span.style.fontSize="x-large" //字体大小
+body.appendChild(new_span);
+index_i++;
+if(index_i>textArr.length-1)index_i=0; //通用形式不用修改
+// 定时器1实现字符串上升效果
+var timer = window.setInterval(()=>{
+    new_span.style.top=parseInt(window.getComputedStyle(new_span,null)['top'])-2+'px';
+    // console.log(window.getComputedStyle(new_span,null)['fontSize']);
+    new_span.style.opacity=window.getComputedStyle(new_span,null)['opacity']-0.02;
+},30);
+// 定时器2实现字符串消失
+window.setTimeout(()=>{
+    window.clearInterval(timer);
+    body.removeChild(new_span);
+},1000);
+},false);
+</script>
+</html>
